@@ -1,12 +1,9 @@
-import  dotenv  from "dotenv";
 
-dotenv.config()
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 //Set up default mongoose connection
-const mongoDB = 'mongodb://127.0.0.1/ecomerce2024';
+const mongoDB = 'mongodb+srv://amir:123@cluster0.n7j1wak.mongodb.net/ecomerce2024';
 
-console.log(process.env.DATABASE_URL)
- mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true }).then(()=>{
+ mongoose.connect(mongoDB, { useNewUrlParser: true }).then(()=>{
       console.log("Connected to MongoDB database succes")
 }).catch(err=>{
       console.log("Error connecting to MongoDB database", err)

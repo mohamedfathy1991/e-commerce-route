@@ -6,12 +6,12 @@ import { log } from "console";
 import path from "path";
 import { fileURLToPath } from 'url';
 import { deleteItem } from "../handler/handle.delete.js";
+import { Apifiture } from "../../utilts/apifeture.js";
 
 
 
 
 export const addCategory=  errhandle( async(req,res,next)=>{
-
       const {name} = req.body;
       const slug= slugify(name)
       let categoery = new  Category(req.body)
@@ -33,7 +33,10 @@ export const getOneCategory=errhandle(async(req,res,next)=>{
 
 })
 export const getCategory=errhandle(async(req,res,next)=>{
-      const category = await Category.find()
+
+      let apicategory= new Apifiture(req.query,Category.find())
+       apicategory.fields().pagination().filter().search()
+       let category= await apicategory.mongosequery
       if(category.legnth==0) return(next(new AppErr('no category found ', 400)))
       res.json({message:"success",category})
 

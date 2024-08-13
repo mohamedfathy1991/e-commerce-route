@@ -6,8 +6,8 @@ export const validate=(schema)=>{
 
             let  fileimage={}
             if(req.file) {
-                   fileimage.image=req.file.image
-                   fileimage.logo=req.file.logo
+                    if(req.file.image)fileimage.image=req.file.image
+                     if(req.file.logo )fileimage.logo=req.file.logo
                   }
             if(req.files){
                   
@@ -23,7 +23,6 @@ export const validate=(schema)=>{
          
            if(!error) next()
            else{
-            console.log(error);
              let  errMessage= error.details.map(err=>err.message)
 
 

@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const CobonSchema = new Schema(
   {
-    type: {
+    code: {
       type: String,
       required: true,
       
@@ -17,5 +17,5 @@ const CobonSchema = new Schema(
     versionKey: false,
   }
 );
-export const Cobon= model('Cobon',CobonSchema)
+export const Copon= model('Cobon',CobonSchema)
 

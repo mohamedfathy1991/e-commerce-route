@@ -1,5 +1,5 @@
-import { boolean } from "joi";
 import { Schema, model } from "mongoose";
+import bcrypt from "bcrypt"
 
 const userschema = new Schema({
   name: {
@@ -26,6 +26,19 @@ const userschema = new Schema({
 
     default: false,
   },
+  passwordChangedAt:Date  
+  ,
+  washlist:[{
+    type: Schema.Types.ObjectId,
+  
+    ref:"Product"}
+  ]
+  ,
+  address:[{
+    city:String,
+    street:String,
+    phone:String
+  }],
   confirm: {
     type: Boolean,
     default: false,
@@ -34,4 +47,10 @@ const userschema = new Schema({
   otpExpaire: Date,
 });
 // Compile model from schema
+userschema.pre('save',function(){
+  console.log((this.password));
+  this.password=bcrypt.hashSync(this.password,8)
+
+})
+
 export const User = model("User", userschema);

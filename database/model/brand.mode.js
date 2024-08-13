@@ -8,17 +8,23 @@ const brandschema = new Schema(
       unique: true,
       trim: true,
       minlength: [2, "to shoort"],
+
     },
     slug: {
       type: String,
       required: true,
       lowercase: true,
       trim: true,
+
+
     },
     logo: String,
-    createdBy:{
+    createdBy: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required:
+        true,
+
     }
   },
   {
@@ -27,8 +33,8 @@ const brandschema = new Schema(
   }
 );
 
-brandschema.post('init',(docs)=>{
-  docs.logo= "http://localhost:3000/uploads/brand/"+docs.logo
+brandschema.post('init', (docs) => {
+  docs.logo = "http://localhost:3000/uploads/brand/" + docs.logo
 })
-export const Brand= model('Brand',brandschema)
+export const Brand = model('Brand', brandschema)
 

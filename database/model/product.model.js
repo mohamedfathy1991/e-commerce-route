@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const schemaCategoy = new Schema(
+const schemaProduct = new Schema(
   {
     title: {
       type: String,
@@ -60,10 +60,36 @@ const schemaCategoy = new Schema(
       ref: "User",
     }
   },
+  
 
   {
     timestamps: true,
     versionKey: false,
+    toJSON: { virtuals: true },
   }
 );
-export const Product = model("Product", schemaCategoy);
+schemaProduct.virtual('Reviews',{
+    ref: 'Review',
+    localField: '_id',
+    foreignField: 'productid',
+    })
+
+/** there is problem in  pre  populate ???????? */
+  //   schemaProduct.pre("find", function () {
+  //     if (!this._populatedReviews) {
+  //       this.populate('Reviews');
+  //       this._populatedReviews = true;
+  //       console.log('Populating reviews');
+
+  //     }
+      
+      
+  // });
+  
+  schemaProduct.pre(/^find/,function(){
+      this.populate('Reviews') 
+    })
+
+
+  
+    export const Product = model("Product", schemaProduct);

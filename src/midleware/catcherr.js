@@ -10,7 +10,9 @@ export  class AppErr extends Error{
 
 export const  errhandle=(fun)=>{
       return(req,res,next)=>{
-            fun(req,res,next).catch(err=>{
+           fun(req,res,next).catch(err=>{
+                  console.log("err herr!!!"+err);
+
                   
                   next(new AppErr(err,500))
                   

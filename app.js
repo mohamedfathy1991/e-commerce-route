@@ -3,28 +3,38 @@
 import express from 'express'
 
 
-import globalerr from './src/midleware/globalerr.js'
 import { bootStrap } from './bootstrap.js'
 import { AppErr } from './src/midleware/catcherr.js'
+import globalerr from './src/midleware/globalerr.js'
 
 
+import dotenv from "dotenv"
 import './database/dbconection.js'
+import cors from "cors"
 
 const app = express()
 
+app.use(cors())
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use("/uploads",express.static("uploads"))
 
-const port = 3000
-
+app.use("/uploads", express.static("uploads"))
 
 
-bootStrap(app)
+const port = process.env.PORT|| 3000
 
 
-app.use("*",(req,res,next)=>{
-      next( new AppErr('page not found',404))
+
+
+dotenv.config()
+
+
+
+bootStrap(app)   
+
+app.use("*", (req, res, next) => {
+      next(new AppErr('page not found', 404))
 })
 app.use(globalerr)
 

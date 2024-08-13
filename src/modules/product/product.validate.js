@@ -17,6 +17,8 @@ export  const productValidation= Joi.object({
      images:Joi.array().items(fileSchema).min(1).required(),
      price:Joi.number().required(),
      discreption:Joi.string().required(),
+     stock:Joi.string().required(),
+     solid:Joi.string().required()
  
 
 

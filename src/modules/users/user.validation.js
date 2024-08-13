@@ -3,16 +3,13 @@ import Joi from "joi";
 const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|net)$/
 
  export const sinupvalidation=  Joi.object({
-      firstName: Joi.string().required(),
-      lastName: Joi.string().required(),
+      name: Joi.string().required(),
       email: Joi.string().email().pattern(emailPattern).required(),
       password: Joi.string().required('enter password').min(3).pattern(/^[1-9a-zA-Z]{3,10}$/),
       confirmPassword: Joi.string().required('con firm password').
       valid(Joi.ref('password'))
       .messages({ 'any.only': 'Passwords do not match' }),
-      phone: Joi.string().required().pattern(/^01[0-9]{9}$/),
-      recoverEmail:Joi.string().email().required().pattern(emailPattern),
-      birthDate:Joi.date().max('now').iso(),
+      phone: Joi.string().optional().pattern(/^01[0-9]{9}$/),
       role: Joi.string().valid('user', 'HR_company').optional()
 
 

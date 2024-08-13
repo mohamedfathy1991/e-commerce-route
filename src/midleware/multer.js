@@ -35,6 +35,7 @@ return upload
 }
 
 export const uploadSingleImage=(filename,foldername)=>{
+  
   return uploadImage(foldername).single(filename)
 }
 export const uploadmixofImage=(fieldname,foldername)=>{

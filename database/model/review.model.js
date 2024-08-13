@@ -27,5 +27,8 @@ const ReviewSchema = new Schema(
     versionKey: false,
   }
 );
+ReviewSchema.pre(/^find/,function(){
+  this.populate('user', 'productid') 
+})
 export const Review= model('Review',ReviewSchema)
 
