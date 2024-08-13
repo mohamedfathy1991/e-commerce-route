@@ -22,12 +22,12 @@ export const addCashOrder = errhandle(async (req, res, next) => {
     address: req.body.address,
   });
   await orderitem.save();
-  // userCart.items.forEach(product=>{
-  //         let pro =  Product.findById(product.productid)
-  //         pro.solid +=product.quntitiy
-  //         pro.stock -= product.quntitiy
-  //         pro.save()
-  // })
+  userCart.items.forEach((product) => {
+    let pro = Product.findById(product.productid);
+    pro.solid += product.quntitiy;
+    pro.stock -= product.quntitiy;
+    pro.save();
+  });
   let option = orderitem.items.map((prod) => {
     return {
       updateOne: {
@@ -55,6 +55,7 @@ export const getAllUserOrder = errhandle(async (req, res, next) => {
 
 export const createPaymentByVisa = errhandle(async (req, res, next) => {
   let userCart = await Cart.findById(req.params.id);
+
   let orderPrice = userCart.totalPriceAfterDiscouint || userCart.totalprice;
 
   const session = await stripe.checkout.sessions.create({
@@ -64,7 +65,7 @@ export const createPaymentByVisa = errhandle(async (req, res, next) => {
           currency: "egp",
           unit_amount: orderPrice * 100,
           product_data: {
-            name: req.user.name||"ay haga ",
+            name: req.user.name || "ay haga ",
           },
         },
         quantity: 1,
